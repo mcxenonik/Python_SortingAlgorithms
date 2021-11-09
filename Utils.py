@@ -1,4 +1,8 @@
+import matplotlib.pyplot as plt
 from random import randint
+
+import time
+import gc
 
 class Utils():
     def __init__(self):
@@ -22,14 +26,12 @@ class Utils():
 
         return table
 
-    @staticmethod
-    def generate_table_of_randint(number_of_elements):
+    def _generate_table_of_randint(number_of_elements):
         table = [randint(0, number_of_elements) for i in range(number_of_elements)]
 
         return table
 
-    @staticmethod
-    def generate_table_from_file(file_name, number_of_elements):
+    def _generate_table_from_file(file_name, number_of_elements):
         with open(file_name, encoding='utf8') as file:
             file_content = file.read().lower().split()
 
@@ -37,8 +39,7 @@ class Utils():
 
         return table
 
-    @staticmethod
-    def print_table(table):
+    def _print_table(table):
         print("TABLE:")
         print("-------------------------")
 
@@ -46,4 +47,37 @@ class Utils():
             print(element, end=" | ")
 
         print("\n-------------------------")
-        print("NUMBER OF ELEMENTS: ", len(table), "\n") 
+        print("NUMBER OF ELEMENTS: ", len(table), "\n")
+
+    def _draw_plot(xpoints, ypoints):
+        plt.plot(xpoints, ypoints)
+        plt.savefig("Plot.png")
+        # plt.show()
+
+    def _measure_time(algorithm, table):
+        gc_old = gc.isenabled()
+        gc.disable()
+
+        start = time.process_time()
+        table_sorted = algorithm.run_algorithm(table)
+        stop = time.process_time()
+
+        if (gc_old): 
+            gc.enable()
+
+        Utils._print_table(table_sorted)
+
+        return stop - start
+
+    @staticmethod
+    def start_measurements(algorithm, file_name, number_of_elements_list):
+        ypoints = []
+
+        for number_of_elements in number_of_elements_list:
+            table = Utils._generate_table_from_file(file_name, number_of_elements)
+            process_time = Utils._measure_time(algorithm, table)
+            ypoints.append(process_time)
+
+            print('PROCESS TIME: ', format(process_time, '.10f'))
+
+        Utils._draw_plot(number_of_elements_list, ypoints)

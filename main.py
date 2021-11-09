@@ -1,13 +1,13 @@
 from SelectionSort import SelectionSort
+from QuickSort import QuickSort
 from Utils import Utils
 
 if __name__ == "__main__":
     file_name = "pan-tadeusz.txt"
-    number_of_elements = 100
+    # number_of_elements_list = [n for n in range(1000, 20000, 1000)]
+    number_of_elements_list = [1000]
 
-    table = Utils.generate_table_from_file(file_name, number_of_elements)
-    Utils.print_table(table)
+    Utils.start_measurements(SelectionSort, file_name, number_of_elements_list)
 
-    table_sorted = SelectionSort.run_algorithm(table)
-    Utils.print_table(table_sorted)
+    Utils.start_measurements(QuickSort, file_name, number_of_elements_list)
 
