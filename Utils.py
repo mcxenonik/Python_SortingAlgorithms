@@ -56,12 +56,24 @@ class Utils():
             print(element, end=" | ")
 
         print("\n-------------------------")
-        print("NUMBER OF ELEMENTS: ", len(table), "\n")
+        print("NUMBER OF ELEMENTS:", len(table), "\n")
 
     def _draw_plot(algorithm_name, xpoints, ypoints):
-        plt.plot(xpoints, ypoints)
+        figure1 = plt.figure()
+        plt.plot(xpoints, ypoints, marker='o')
         plt.title(algorithm_name)
+        plt.xlabel("Number of elements")
+        plt.ylabel("Process time [s]")
         plt.savefig(algorithm_name + ".png")
+        # plt.show()
+        plt.close(figure1)
+
+        plt.semilogy(xpoints, ypoints, marker='o', label=algorithm_name)
+        plt.title("All algorithms")
+        plt.xlabel("Number of elements")
+        plt.ylabel("Process time [s]")
+        plt.legend(loc="upper left")
+        plt.savefig("All algorithms.png")
         # plt.show()
 
     def _measure_time(algorithm, table):
@@ -92,6 +104,6 @@ class Utils():
             process_time = Utils._measure_time(algorithm, table)
             ypoints.append(process_time)
 
-            print('PROCESS TIME: ', format(process_time, '.10f'))
+            print("PROCESS TIME:", format(process_time, '.10f'), "FOR", number_of_elements, "ELEMENTS")
 
         Utils._draw_plot(algorithm_name, number_of_elements_list, ypoints)
