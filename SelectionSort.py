@@ -1,6 +1,9 @@
 class SelectionSort():
     def __init__(self):
         pass
+
+    def __str__(self):
+        return "SelectionSort"
     
     def _find_minimum(table, element_index):
         minimum_index = element_index

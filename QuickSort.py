@@ -2,6 +2,9 @@ class QuickSort():
     def __init__(self):
         pass
 
+    def __str__(self):
+        return "QuickSort"
+
     @staticmethod
     def run_algorithm(table, l = 0, r = None):
         if (r is None): 
