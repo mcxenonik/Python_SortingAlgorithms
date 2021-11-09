@@ -8,12 +8,12 @@ class Utils():
     def __init__(self):
         pass
 
-    def _clear_words(file_content, number_of_elements):
+    def _clear_words(words_list, number_of_elements):
         illegal_chars = [",", ".", "?", "!", ";", ":", "-", "–", "—", "/", "(", ")", "…", 
                         "»", "«", "*", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         table = []
 
-        for word in file_content:
+        for word in words_list:
             for char in word:
                 if (char in illegal_chars):
                     word = word.replace(char, "")
@@ -33,9 +33,9 @@ class Utils():
 
     def _generate_table_from_file(file_name, number_of_elements):
         with open(file_name, encoding='utf8') as file:
-            file_content = file.read().lower().split()
+            words_list = file.read().lower().split()
 
-        table = Utils._clear_words(file_content, number_of_elements)
+        table = Utils._clear_words(words_list, number_of_elements)
 
         return table
 
@@ -65,7 +65,7 @@ class Utils():
         if (gc_old): 
             gc.enable()
 
-        Utils._print_table(table_sorted)
+        # Utils._print_table(table_sorted)
 
         return stop - start
 
