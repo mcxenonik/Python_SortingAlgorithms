@@ -1,2 +1,0 @@
-# AISDI_Lab1
-
