@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from random import randint
+from random import randint, choice
 
 import time
 import gc
@@ -7,6 +7,25 @@ import gc
 class Utils():
     def __init__(self):
         pass
+
+    def _generate_table_of_random_words(number_of_elements, max_word_length=15):
+        alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+                    "k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
+                    "u", "w", "v", "x", "y", "z"]
+        table = []
+
+        for i in range(number_of_elements):
+            word_length = randint(1, max_word_length)
+            word = ""
+
+            for j in range(word_length):
+                word += choice(alphabet)
+            
+            table.append(word)
+
+        # Utils._print_table(table)
+
+        return table
 
     def _generate_table_of_randint(number_of_elements):
         table = [randint(0, number_of_elements) for i in range(number_of_elements)]
@@ -39,6 +58,15 @@ class Utils():
                 break
 
         return table
+
+    def _save_table_to_file(file_name, table):
+        words = ""
+
+        for word in table:
+            words += str(word) + " "
+
+        with open(file_name, "w") as file:
+            file.write(words)
 
     def _read_words_list_from_file(file_name):
         with open(file_name, encoding='utf8') as file:
@@ -101,6 +129,8 @@ class Utils():
 
         for number_of_elements in number_of_elements_list:
             table = Utils._generate_table_from_words_list(words_list, number_of_elements)
+            # table = Utils._generate_table_of_random_words(number_of_elements)
+            # table = Utils._generate_table_of_randint(number_of_elements)
             process_time = Utils._measure_time(algorithm, table)
             ypoints.append(process_time)
 

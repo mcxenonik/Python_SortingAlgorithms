@@ -9,9 +9,9 @@ def run(input_file_name, number_of_elements_list):
 
     Utils.start_measurements(MergeSort, input_file_name, number_of_elements_list)
 
-    Utils.start_measurements(BubbleSort, input_file_name, number_of_elements_list)
-
     Utils.start_measurements(SelectionSort, input_file_name, number_of_elements_list)
+
+    Utils.start_measurements(BubbleSort, input_file_name, number_of_elements_list)
 
 if __name__ == "__main__":
     input_file_name = "pan-tadeusz.txt"
